@@ -3,7 +3,7 @@ package com.jason798.hbase.action.crud.impl;
 
 import com.jason798.hbase.action.CRUDParamReturnAction;
 import com.jason798.hbase.api.HBaseException;
-import com.jason798.hbase.api.RowDto;
+import com.jason798.hbase.api.RowSimpleDto;
 import com.jason798.hbase.model.param.crud.PutRowsParam;
 import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.Put;
@@ -33,9 +33,9 @@ public class PutRowListAction extends PutRowBaseAction implements CRUDParamRetur
 	@Override
 	public Integer service(Table table, PutRowsParam param) throws Exception {
 		List<Put> puts = new LinkedList<>();
-		List<RowDto> rowDtoList = param.getValues();
+		List<RowSimpleDto> rowDtoList = param.getValues();
 		boolean checkExist = param.isCheckExist();
-		for(RowDto rowKey:rowDtoList){
+		for(RowSimpleDto rowKey:rowDtoList){
 			byte[] rowKeyByte = Bytes.toBytes(rowKey.getRowkey());
 			if(checkExist){
 				Get get = new Get(rowKeyByte);

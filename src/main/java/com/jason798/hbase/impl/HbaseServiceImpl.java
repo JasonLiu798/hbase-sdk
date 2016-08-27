@@ -9,7 +9,7 @@ import com.jason798.hbase.antlr.SQLGrammerParser;
 import com.jason798.hbase.antlr.model.RowKeyRange;
 import com.jason798.hbase.antlr.model.SelectDto;
 import com.jason798.hbase.api.HbaseService;
-import com.jason798.hbase.api.RowDto;
+import com.jason798.hbase.api.RowSimpleDto;
 import com.jason798.hbase.core.HbaseTemplate;
 import com.jason798.hbase.core.NotNullable;
 import com.jason798.hbase.core.Nullable;
@@ -46,7 +46,7 @@ public class HbaseServiceImpl implements HbaseService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<RowDto> executeQuery(String sql) throws Exception {
+	public List<RowSimpleDto> executeQuery(String sql) throws Exception {
 		long t = System.currentTimeMillis();
 		SQLGrammerParser.ProgContext ctx = SQLParser.getProgContext(sql);//"select c1,c2,c3 from tab1 rowkey is \"1232\" ");
 		SelectDto dto = SQLParser.parseSelect(ctx);
@@ -64,7 +64,7 @@ public class HbaseServiceImpl implements HbaseService {
 
 		//where part
 
-		List<RowDto> res = null;//
+		List<RowSimpleDto> res = null;//
 		//rowkey part
 		RowKeyRange range = dto.getRowKeyRange();
 		if(range.getType() == RowKeyRange.TYPE_RANGE || range.getType() == RowKeyRange.TYPE_END || range.getType()== RowKeyRange.TYPE_START ){
@@ -80,7 +80,7 @@ public class HbaseServiceImpl implements HbaseService {
 			String rowKey = range.getStart();
 			Map<String,String> oneValue = selectRow(tableName,rowKey,HbaseConstant.DFT_COL_FAMILY,colimnList );
 			res = new LinkedList<>();
-			res.add(new RowDto(rowKey,oneValue));
+			res.add(new RowSimpleDto(rowKey,oneValue));
 		}
 
 		long t2 = System.currentTimeMillis() - t1;
@@ -120,7 +120,7 @@ public class HbaseServiceImpl implements HbaseService {
 	 * @throws Exception
 	 */
 	@Override
-	public void insertRows(@NotNullable String tableName, @Nullable String columnFamily, @NotNullable List<RowDto> param)
+	public void insertRows(@NotNullable String tableName, @Nullable String columnFamily, @NotNullable List<RowSimpleDto> param)
 			throws Exception {
 		if(LOGGER.isDebugEnabled())
 			LOGGER.debug("insert model,tab {},obj {}", tableName,param);
@@ -131,7 +131,7 @@ public class HbaseServiceImpl implements HbaseService {
 		HbaseTemplate ht = new HbaseTemplate();
 		ht.execute(new PutRowListAction(tableName),new PutRowsParam(columnFamily,param));
 	}
-	public void insertRows(@NotNullable String tableName, @NotNullable List<RowDto> param) throws Exception{
+	public void insertRows(@NotNullable String tableName, @NotNullable List<RowSimpleDto> param) throws Exception{
 		insertRows(tableName,null,param);
 	}
 
@@ -225,7 +225,7 @@ public class HbaseServiceImpl implements HbaseService {
 	 * @param param K:rowKey,V:[K:qualifer,V:value]  @throws Exception
 	 * */
 	@Override
-	public void updateRows(@NotNullable String tableName,@Nullable String columnFamily, @NotNullable List<RowDto> param)
+	public void updateRows(@NotNullable String tableName,@Nullable String columnFamily, @NotNullable List<RowSimpleDto> param)
 			throws Exception {
 		if(LOGGER.isDebugEnabled())
 			LOGGER.debug("batch update rows,tab {},obj {}", tableName,param);
@@ -290,11 +290,11 @@ public class HbaseServiceImpl implements HbaseService {
 
 //		CheckUtil.checkNullAll(tableName,rowKey);
 //		columnFamily = HbaseHelper.filterColumnFamily(columnFamily);
-		List<RowDto> res = selectRows(tableName,new String[]{rowKey},columnFamily,specColumns,1);
+		List<RowSimpleDto> res = selectRows(tableName,new String[]{rowKey},columnFamily,specColumns,1);
 		if(CollectionHelper.isEmpty(res)){
 			return null;
 		}else{
-			RowDto dto = res.get(0);
+			RowSimpleDto dto = res.get(0);
 			if(dto!=null){
 				return dto.getValues();
 			}else{
@@ -304,7 +304,7 @@ public class HbaseServiceImpl implements HbaseService {
 
 
 //		HbaseTemplate ht = new HbaseTemplate();
-//		RowDto res = ht.execute(new GetRowAction(tableName),new SelectRowParam(rowKey, columnFamily,specColumns));
+//		RowSimpleDto res = ht.execute(new GetRowAction(tableName),new SelectRowParam(rowKey, columnFamily,specColumns));
 //		if(res!=null) {
 //			return res.getValues();
 //		}else{
@@ -361,7 +361,7 @@ public class HbaseServiceImpl implements HbaseService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<RowDto> selectRows(@NotNullable String tableName,
+	public List<RowSimpleDto> selectRows(@NotNullable String tableName,
 								   @NotNullable String[] rowKeys, String columnFamily, @NotNullable String[] qualiferList, @NotNullable Integer limit) throws Exception {
 		if(LOGGER.isDebugEnabled())
 			LOGGER.debug("select rows,tab:{},rowKeylist:{},spec:{},maxsize:{}", tableName,rowKeys, Arrays.toString(qualiferList),limit);
@@ -371,7 +371,7 @@ public class HbaseServiceImpl implements HbaseService {
 		limit = HbaseHelper.filterLimit(limit);
 
 		HbaseTemplate ht = new HbaseTemplate();
-		List<RowDto> res = ht.execute(new GetRowsAction(tableName),new SelectSpecRowsParam(rowKeys, columnFamily, qualiferList,limit));
+		List<RowSimpleDto> res = ht.execute(new GetRowsAction(tableName),new SelectSpecRowsParam(rowKeys, columnFamily, qualiferList,limit));
 		return res;
 	}
 
@@ -384,7 +384,7 @@ public class HbaseServiceImpl implements HbaseService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<RowDto> selectRows(String tableName, String[] rowKeys,
+	public List<RowSimpleDto> selectRows(String tableName, String[] rowKeys,
 			String[] specQualifiers) throws Exception {
 		return selectRows(tableName,rowKeys,null, specQualifiers, HbaseConstant.DFT_SELECT_MAX_SIZE);
 	}
@@ -397,7 +397,7 @@ public class HbaseServiceImpl implements HbaseService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<RowDto> selectRows(String tableName, String[] rowKeys)
+	public List<RowSimpleDto> selectRows(String tableName, String[] rowKeys)
 			throws Exception {
 		return selectRows(tableName,rowKeys,null);
 	}
@@ -414,7 +414,7 @@ public class HbaseServiceImpl implements HbaseService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<RowDto> selectRows(@NotNullable String tab, @NotNullable String startRowkey,@NotNullable String endRowKey, @Nullable String columnFamily,@Nullable String[] specColumns, @Nullable Integer limit) throws Exception {
+	public List<RowSimpleDto> selectRows(@NotNullable String tab, @NotNullable String startRowkey,@NotNullable String endRowKey, @Nullable String columnFamily,@Nullable String[] specColumns, @Nullable Integer limit) throws Exception {
 		if(LOGGER.isDebugEnabled())
 			LOGGER.debug("select rows,tab:{},start:{},end:{},spec:{},maxsize:{}",tab,startRowkey,endRowKey,specColumns, limit);
 		//CheckUtil.checkNullAll(tab,startRowkey,endRowKey);
@@ -436,7 +436,7 @@ public class HbaseServiceImpl implements HbaseService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<RowDto> selectRows(@NotNullable String tableName, @NotNullable String startRowkey, @NotNullable String endRowKey, @Nullable String[] specColumns) throws Exception{
+	public List<RowSimpleDto> selectRows(@NotNullable String tableName, @NotNullable String startRowkey, @NotNullable String endRowKey, @Nullable String[] specColumns) throws Exception{
 		return selectRows(tableName,startRowkey,endRowKey,null,specColumns,null);
 	}
 
@@ -449,7 +449,7 @@ public class HbaseServiceImpl implements HbaseService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<RowDto> selectRows(@NotNullable String tableName,@NotNullable String startRowkey,@NotNullable String endRowKey) throws Exception{
+	public List<RowSimpleDto> selectRows(@NotNullable String tableName,@NotNullable String startRowkey,@NotNullable String endRowKey) throws Exception{
 		return selectRows(tableName,startRowkey,endRowKey,null);
 	}
 
@@ -461,7 +461,7 @@ public class HbaseServiceImpl implements HbaseService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<RowDto> selectRows(@NotNullable String tableName) throws Exception{
+	public List<RowSimpleDto> selectRows(@NotNullable String tableName) throws Exception{
 		return selectRows(tableName,null,null,null);
 	}
 

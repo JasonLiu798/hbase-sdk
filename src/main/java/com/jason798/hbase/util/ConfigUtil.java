@@ -15,7 +15,7 @@ public class ConfigUtil {
 	/**
      * classpath:app.properties
      */
-    private static final String DFT_FILE_NAME = "sysconfig";
+    private static final String DFT_FILE_NAME = "hbaseconfig";
 
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(DFT_FILE_NAME);
 

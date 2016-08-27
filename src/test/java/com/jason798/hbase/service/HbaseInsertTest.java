@@ -2,7 +2,7 @@ package com.jason798.hbase.service;
 
 import com.jason798.hbase.api.HbaseService;
 import com.jason798.hbase.api.HbaseServiceFactory;
-import com.jason798.hbase.api.RowDto;
+import com.jason798.hbase.api.RowSimpleDto;
 import com.jason798.hbase.api.TableDto;
 import com.jason798.hbase.util.BeanHelper;
 import com.jason798.hbase.util.FileUtils;
@@ -42,9 +42,9 @@ public class HbaseInsertTest {
 	@Test
 	public void testPuts() throws Exception{
 		System.out.println("batch insert start -----------");
-		List<RowDto> list = new LinkedList<>();
+		List<RowSimpleDto> list = new LinkedList<>();
 		for(int i=0;i<100;i++){
-			RowDto dto = new RowDto();
+			RowSimpleDto dto = new RowSimpleDto();
 			TestModel testModel = new TestModel();
 			testModel.setF1(String.valueOf(i));
 			testModel.setF3(new Date());
@@ -73,7 +73,7 @@ public class HbaseInsertTest {
 	public void checkBatchGet() throws Exception{
 		String[] spec = {"f1"};
 //		String[] spec = null;
-		List<RowDto> res = hbaseService.selectRows(tabName,"0","99",spec);
+		List<RowSimpleDto> res = hbaseService.selectRows(tabName,"0","99",spec);
 		System.out.println(String.format("res size: %s,values: %s",res.size(),res));
 	}
 
@@ -108,8 +108,6 @@ public class HbaseInsertTest {
 		System.out.println("get bytes start -----------");
 		TableDto tab = new TableDto();
 		tab.setTableName(tabName);
-		tab.setColumnFamily(cf);
-		tab.setRowKey(rk);
 		String[] bytesColumn = {"zip"};
 		Map<String,Object> res = hbaseService.selectRowWithBytes(tabName, rk, bytesColumn,null);
 		byte[] zipfile = (byte[]) res.get("zip");

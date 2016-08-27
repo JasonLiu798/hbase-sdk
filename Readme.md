@@ -2,9 +2,11 @@
 for single columnfamily simple hbase sdk.
 
 #TODO
+support multi column
 implement update delete insert select condition sql
 add Table buffer config
 add more config
+add more demo
 
 
 #change log

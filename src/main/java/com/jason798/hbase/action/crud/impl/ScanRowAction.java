@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import com.jason798.hbase.action.CRUDParamReturnAction;
 import com.jason798.hbase.api.HBaseException;
-import com.jason798.hbase.api.RowDto;
+import com.jason798.hbase.api.RowSimpleDto;
 import com.jason798.hbase.model.param.crud.SelectRowsParam;
 import com.jason798.hbase.util.CollectionHelper;
 import com.jason798.hbase.util.StringHelper;
@@ -22,14 +22,14 @@ import org.apache.hadoop.hbase.util.Bytes;
  * scan rows
  */
 public class ScanRowAction extends ScanRowBaseAction implements
-        CRUDParamReturnAction<SelectRowsParam, List<RowDto> > {
+        CRUDParamReturnAction<SelectRowsParam, List<RowSimpleDto> > {
 
     public ScanRowAction(String tableName) {
         super(tableName);
     }
 
     @Override
-    public List<RowDto> service(Table table, SelectRowsParam param) throws Exception {
+    public List<RowSimpleDto> service(Table table, SelectRowsParam param) throws Exception {
         Scan scan = new Scan();
         /**
          * SingleColumnValueFilter(
@@ -68,11 +68,11 @@ public class ScanRowAction extends ScanRowBaseAction implements
         }
         ResultScanner rs = null;
 
-        List<RowDto>  res = new LinkedList<>();
+        List<RowSimpleDto>  res = new LinkedList<>();
         try {
             rs = table.getScanner(scan);
             for (Result r : rs) {
-                RowDto rowDto = new RowDto();
+                RowSimpleDto rowDto = new RowSimpleDto();
                 //Map<String, String> map = new HashMap<>();
                 List<Cell> cells = r.listCells();
                 if (CollectionHelper.isEmpty(cells)) {

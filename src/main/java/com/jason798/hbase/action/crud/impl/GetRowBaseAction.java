@@ -1,9 +1,9 @@
 package com.jason798.hbase.action.crud.impl;
 
 
+import com.jason798.hbase.api.RowSimpleDto;
 import com.jason798.hbase.model.constant.HbaseConstant;
 import com.jason798.hbase.util.CollectionHelper;
-import com.jason798.hbase.api.RowDto;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellUtil;
 import org.apache.hadoop.hbase.client.Get;
@@ -74,11 +74,11 @@ public class GetRowBaseAction extends CRUDBaseAction{
 	 * @param result
 	 * @return
 	 */
-	protected RowDto result2RowDto(Result result){
+	protected RowSimpleDto result2RowDto(Result result){
 		if(result==null || result.isEmpty()){
 			return null;
 		}
-		RowDto rowDto = new RowDto();
+		RowSimpleDto rowDto = new RowSimpleDto();
 		rowDto.setRowkey(Bytes.toString(result.getRow()));
 		List<Cell> list = result.listCells();
 		Map<String, String> values = new HashMap<>();

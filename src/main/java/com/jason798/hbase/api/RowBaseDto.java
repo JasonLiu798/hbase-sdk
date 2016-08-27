@@ -5,25 +5,23 @@ import java.io.Serializable;
 /**
  * TODO: more common data result include columnfamily
  */
-public class RowRawDto implements Serializable {
+public class RowBaseDto implements Serializable {
 
 	/**
 	 * rowkey
 	 */
-	private String rowkey;
-	private String columnFamily;
-	private String qualifer;
-	private String value;
-	private long timestamp;
+	protected String rowkey;
+	protected String columnFamily;
+	protected String qualifer;
+	protected String value;
 
-	public RowRawDto(){}
+	public RowBaseDto(){}
 
-	public RowRawDto(String rowkey, String columnFamily, String qualifer, String value, long timestamp) {
+	public RowBaseDto(String rowkey, String columnFamily, String qualifer, String value) {
 		this.rowkey = rowkey;
 		this.columnFamily = columnFamily;
 		this.qualifer = qualifer;
 		this.value = value;
-		this.timestamp = timestamp;
 	}
 
 	public String getRowkey() {
@@ -58,22 +56,14 @@ public class RowRawDto implements Serializable {
 		this.value = value;
 	}
 
-	public long getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
-	}
 
 	@Override
 	public String toString() {
-		return "RowRawDto{" +
+		return "RowDto{" +
 				"rowkey='" + rowkey + '\'' +
 				", columnFamily='" + columnFamily + '\'' +
 				", qualifer='" + qualifer + '\'' +
 				", value='" + value + '\'' +
-				", timestamp=" + timestamp +
 				'}';
 	}
 }

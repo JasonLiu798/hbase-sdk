@@ -26,7 +26,7 @@ public interface HbaseService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<RowDto> executeQuery(@NotNullable String sql) throws Exception;
+	public List<RowSimpleDto> executeQuery(@NotNullable String sql) throws Exception;
 
 	/**
 	 * insert one row
@@ -52,8 +52,8 @@ public interface HbaseService {
 	 * @param param key:rowKey,value:qulifer,value
 	 * @throws Exception
 	 */
-	void insertRows(@NotNullable String tableName, String columnFamily, @NotNullable List<RowDto> param) throws Exception;
-	void insertRows(@NotNullable String tableName, @NotNullable List<RowDto> param) throws Exception;
+	void insertRows(@NotNullable String tableName, String columnFamily, @NotNullable List<RowSimpleDto> param) throws Exception;
+	void insertRows(@NotNullable String tableName, @NotNullable List<RowSimpleDto> param) throws Exception;
 
 	/**
 	 * insert one row ,with bytes
@@ -118,7 +118,7 @@ public interface HbaseService {
 	 * @param columnFamily
 	 * @param param K:rowKey,V:[K:qualifer,V:value]  @throws Exception
 	 * */
-	void updateRows(@NotNullable String tableName, String columnFamily, @NotNullable List<RowDto> param) throws Exception;
+	void updateRows(@NotNullable String tableName, String columnFamily, @NotNullable List<RowSimpleDto> param) throws Exception;
 
 	/**
 	 * update different table batch rows
@@ -173,10 +173,10 @@ public interface HbaseService {
 	 *@param limit 最多获取行数，如rowkey list超过，则按此参数截取  @return
 	 * @throws Exception
 	 */
-	List<RowDto> selectRows(@NotNullable String tableName, @NotNullable String[] rowKeys, String columnFamily, @Nullable String[] qualiferList, @Nullable Integer limit) throws Exception;
-	List<RowDto> selectRows(@NotNullable  String tableName, @NotNullable String[] rowKeys, @Nullable String[] qualiferList) throws Exception;
-	List<RowDto> selectRows(@NotNullable String tableName, @NotNullable String[] rowKeys) throws Exception;
-	List<RowDto> selectRows(@NotNullable String tableName) throws Exception;
+	List<RowSimpleDto> selectRows(@NotNullable String tableName, @NotNullable String[] rowKeys, String columnFamily, @Nullable String[] qualiferList, @Nullable Integer limit) throws Exception;
+	List<RowSimpleDto> selectRows(@NotNullable  String tableName, @NotNullable String[] rowKeys, @Nullable String[] qualiferList) throws Exception;
+	List<RowSimpleDto> selectRows(@NotNullable String tableName, @NotNullable String[] rowKeys) throws Exception;
+	List<RowSimpleDto> selectRows(@NotNullable String tableName) throws Exception;
 
 	/**
 	 * select rows by start rowKey and end rowKey
@@ -188,7 +188,7 @@ public interface HbaseService {
 	 * @return K:rowkey,V:[K:qualifer,V:value]
 	 * @throws Exception
 	 */
-	List<RowDto> selectRows(@NotNullable String tableName, @NotNullable String startRowkey, @NotNullable String endRowKey, @Nullable String columnFamily,@Nullable String[] specColumns, @Nullable Integer limit) throws Exception;
+	List<RowSimpleDto> selectRows(@NotNullable String tableName, @NotNullable String startRowkey, @NotNullable String endRowKey, @Nullable String columnFamily,@Nullable String[] specColumns, @Nullable Integer limit) throws Exception;
 
 	/**
 	 * select c1,c2...c3 from table STARTKEY = 'startRowKey' ENDKEY = 'endRowKey' FAMILY='default' limit defaultSize
@@ -199,7 +199,7 @@ public interface HbaseService {
 	 * @return
 	 * @throws Exception
 	 */
-	List<RowDto> selectRows(@NotNullable String tableName, @NotNullable String startRowkey, @NotNullable String endRowKey, @Nullable String[] specColumns) throws Exception;
+	List<RowSimpleDto> selectRows(@NotNullable String tableName, @NotNullable String startRowkey, @NotNullable String endRowKey, @Nullable String[] specColumns) throws Exception;
 	/**
 	 * select * from table STARTKEY = 'startRowKey' ENDKEY = 'endRowKey' FAMILY='default' limit defaultSize
 	 * @param tableName
@@ -208,7 +208,7 @@ public interface HbaseService {
 	 * @return
 	 * @throws Exception
 	 */
-	List<RowDto> selectRows(@NotNullable String tableName,@NotNullable String startRowkey,@NotNullable String endRowKey) throws Exception;
+	List<RowSimpleDto> selectRows(@NotNullable String tableName,@NotNullable String startRowkey,@NotNullable String endRowKey) throws Exception;
 
 	/**
 	 * !!! ALERT DDL !!!

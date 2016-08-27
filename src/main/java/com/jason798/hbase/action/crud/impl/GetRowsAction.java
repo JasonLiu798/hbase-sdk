@@ -1,7 +1,7 @@
 package com.jason798.hbase.action.crud.impl;
 
 import com.jason798.hbase.action.CRUDParamReturnAction;
-import com.jason798.hbase.api.RowDto;
+import com.jason798.hbase.api.RowSimpleDto;
 import com.jason798.hbase.model.param.crud.SelectSpecRowsParam;
 import com.jason798.hbase.util.CollectionHelper;
 import org.apache.hadoop.hbase.client.Get;
@@ -16,7 +16,7 @@ import java.util.*;
  * get specified rows
  */
 public class GetRowsAction extends GetRowBaseAction implements
-		CRUDParamReturnAction<SelectSpecRowsParam, List<RowDto>> {
+		CRUDParamReturnAction<SelectSpecRowsParam, List<RowSimpleDto>> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GetRowsAction.class);
 	public GetRowsAction(String tableName) {
 		super(tableName);
@@ -34,8 +34,8 @@ public class GetRowsAction extends GetRowBaseAction implements
 	 * @throws Exception
 	 */
 	@Override
-	public List<RowDto> service(Table table, SelectSpecRowsParam param) throws Exception {
-		List<RowDto> res = new LinkedList<>();
+	public List<RowSimpleDto> service(Table table, SelectSpecRowsParam param) throws Exception {
+		List<RowSimpleDto> res = new LinkedList<>();
 
 		//set condition
 		String[] rowKeys = param.getRowKeys();
@@ -67,7 +67,7 @@ public class GetRowsAction extends GetRowBaseAction implements
 		Result[] resultList = table.get(getList);
 		if(resultList!=null) {
 			for (Result result : resultList) {
-				RowDto rowDto = result2RowDto(result);
+				RowSimpleDto rowDto = result2RowDto(result);
 				if (rowDto != null) {
 					res.add(rowDto);
 				}

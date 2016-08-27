@@ -1,13 +1,13 @@
 package com.jason798.hbase.model.param.crud;
 
 
-import com.jason798.hbase.api.RowDto;
+import com.jason798.hbase.api.RowSimpleDto;
 
 import java.util.List;
 
 public class PutRowsParam {
 	private String columnFamily;
-	private List<RowDto> values;
+	private List<RowSimpleDto> values;
 	private boolean checkExist;
 
 	public PutRowsParam(){
@@ -20,13 +20,13 @@ public class PutRowsParam {
 	 * @param columnFamily
 	 * @param values
 	 */
-	public PutRowsParam(String columnFamily, List<RowDto> values) {
+	public PutRowsParam(String columnFamily, List<RowSimpleDto> values) {
 		this.columnFamily = columnFamily;
 		this.values = values;
 		this.checkExist = false;
 	}
 
-	public PutRowsParam(String columnFamily, List<RowDto> values, boolean checkExist) {
+	public PutRowsParam(String columnFamily, List<RowSimpleDto> values, boolean checkExist) {
 		this.columnFamily = columnFamily;
 		this.values = values;
 		this.checkExist = checkExist;
@@ -40,11 +40,11 @@ public class PutRowsParam {
 		this.columnFamily = columnFamily;
 	}
 
-	public List<RowDto> getValues() {
+	public List<RowSimpleDto> getValues() {
 		return values;
 	}
 
-	public void setValues(List<RowDto> values) {
+	public void setValues(List<RowSimpleDto> values) {
 		this.values = values;
 	}
 
