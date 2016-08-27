@@ -9,6 +9,10 @@ public class HbaseConstant {
 	public static final String COL_FAMILY = "columnFamily";
 
 	public static final String DFT_COL_FAMILY = "f1";
+
+	/**
+	 * TODO: config in file
+	 */
 	public static final int DFT_SELECT_MAX_SIZE = 1000;
 
 
