@@ -1,11 +1,15 @@
 package com.jason798.hbase.action;
 
+import com.jason798.hbase.api.HBaseException;
 import org.apache.hadoop.hbase.client.Admin;
 
 /**
- * DDL，无参数，有返回值
+ * DDL
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public interface AdminReturnAction<T> {
-	public T service(Admin admin) throws Exception;
+	T service(Admin admin) throws HBaseException;
 	
 }

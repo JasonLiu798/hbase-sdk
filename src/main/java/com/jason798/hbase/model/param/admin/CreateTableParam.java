@@ -1,10 +1,13 @@
 package com.jason798.hbase.model.param.admin;
 
-import java.util.Set;
 import org.apache.hadoop.hbase.TableName;
 
+import java.util.Set;
+
 /**
- * create table parameter
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class CreateTableParam {
 	public CreateTableParam(){

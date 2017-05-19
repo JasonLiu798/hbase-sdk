@@ -4,14 +4,11 @@ import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import com.jason798.hbase.action.admin.impl.CheckTableAvailableAction;
 import com.jason798.hbase.action.admin.impl.CreateTableAction;
 import com.jason798.hbase.api.HbaseServiceFactory;
 import com.jason798.hbase.core.HbaseTemplate;
-import com.jason798.hbase.util.CollectionHelper;
 import com.jason798.hbase.action.admin.impl.GetTableColumnFamilyAction;
-import com.jason798.hbase.action.admin.impl.GetTableNamesAction;
 import com.jason798.hbase.model.param.admin.CreateTableParam;
 import org.junit.Test;
 
@@ -61,8 +58,8 @@ public class HbaseAdminTest extends HbaseBasicTest {
 	public void listTableName() throws Exception {
 		System.out.println("------test list tablename start------");
 		HbaseTemplate ht = new HbaseTemplate();
-		String[] tables = ht.executeAdmin(new GetTableNamesAction());
-		CollectionHelper.printArr(tables);
+//		String[] tables = ht.executeAdmin(new GetTableNamesAction());
+//		CollectionUtil.printArr(tables);
 		System.out.println("------test list tablename end------");
 	}
 
@@ -77,7 +74,7 @@ public class HbaseAdminTest extends HbaseBasicTest {
 		String t1 = "test1";
 		HbaseTemplate ht = new HbaseTemplate();
 		String[] cfs = ht.executeAdmin(new GetTableColumnFamilyAction(),t1);
-		CollectionHelper.printArr(cfs);
+//		CollectionUtil.printArr(cfs);
 		System.out.println("------test list cf end------");
 
 	}

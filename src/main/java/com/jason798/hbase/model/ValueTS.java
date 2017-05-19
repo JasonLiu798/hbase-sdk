@@ -2,6 +2,8 @@ package com.jason798.hbase.model;
 
 /**
  *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class ValueTS {
 

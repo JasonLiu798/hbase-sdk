@@ -1,6 +1,8 @@
 package com.jason798.hbase.antlr.core;
 
+import com.jason798.hbase.antlr.SQLGrammerLexer;
 import com.jason798.hbase.antlr.SQLGrammerParser;
+import com.jason798.hbase.antlr.model.ColumnListDto;
 import com.jason798.hbase.antlr.model.RowKeyRange;
 import com.jason798.hbase.antlr.model.SQLType;
 import com.jason798.hbase.antlr.model.SelectDto;
@@ -8,15 +10,16 @@ import com.jason798.hbase.antlr.visitor.ColumnListVisitor;
 import com.jason798.hbase.antlr.visitor.RowKeyRangeVisitor;
 import com.jason798.hbase.api.HBaseException;
 import com.jason798.hbase.util.CheckUtil;
-import com.jason798.hbase.antlr.SQLGrammerLexer;
-import com.jason798.hbase.antlr.model.ColumnListDto;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+
 import java.io.StringReader;
 
 /**
- * SQL parser
- * TODO: implement delete;update;select column family
+ * SQLParser
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class SQLParser {
 
@@ -125,10 +128,6 @@ public class SQLParser {
     }
 
 
-
-
-
-
     public static <T> T getRowKeyRangeClz(SQLGrammerParser.RowkeyrangeContext ctx,Class<T> clz) {
         if( clz.isInstance(ctx)){
             return clz.cast(ctx);
@@ -185,7 +184,7 @@ public class SQLParser {
             res = SQLGrammerParser.DeleteSqlStmtContext.class.cast(ctx).deleteSql();
             return res;
         } else {
-            throw new HBaseException("get delete context error");
+            throw new HBaseException("get deleteOne context error");
         }
     }
 

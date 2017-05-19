@@ -9,6 +9,10 @@ import java.util.List;
 
 /**
  * RowKeyRangeVisitor
+ *
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class ColumnListVisitor extends SQLGrammerBaseVisitor<ColumnListDto> {
 

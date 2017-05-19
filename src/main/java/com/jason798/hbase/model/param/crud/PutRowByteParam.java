@@ -5,7 +5,8 @@ import com.jason798.hbase.model.param.crud.base.PutRowParam;
 import java.util.Map;
 
 /**
- * 
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class PutRowByteParam extends PutRowParam {
 	/**

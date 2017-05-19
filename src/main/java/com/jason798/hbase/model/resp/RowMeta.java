@@ -1,5 +1,10 @@
 package com.jason798.hbase.model.resp;
 
+/**
+ * 
+ * @author JasonLiu798
+ * @since 1.0
+ */
 public class RowMeta {
     protected String rowKey;
     protected String columnFamily;

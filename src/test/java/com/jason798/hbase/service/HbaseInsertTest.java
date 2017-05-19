@@ -1,10 +1,10 @@
 package com.jason798.hbase.service;
 
+import com.jason798.common.ReflectUtil;
 import com.jason798.hbase.api.HbaseService;
 import com.jason798.hbase.api.HbaseServiceFactory;
 import com.jason798.hbase.api.RowSimpleDto;
 import com.jason798.hbase.api.TableDto;
-import com.jason798.hbase.util.BeanHelper;
 import com.jason798.hbase.util.FileUtils;
 import com.jason798.hbase.model.TestModel;
 
@@ -33,7 +33,7 @@ public class HbaseInsertTest {
 		testModel.setF1("v1");
 		testModel.setF2(new BigDecimal(2.2));
 		testModel.setF3(new Date());
-		Map<String,String> map = BeanHelper.getFieldMapAll(testModel);
+		Map<String,String> map = ReflectUtil.getFieldMapAll(testModel);
 
 		hbaseService.insert(tabName,rk , cf, map );
 		System.out.println("insert end -----------");
@@ -48,7 +48,7 @@ public class HbaseInsertTest {
 			TestModel testModel = new TestModel();
 			testModel.setF1(String.valueOf(i));
 			testModel.setF3(new Date());
-			Map<String,String> map = BeanHelper.getFieldMap(testModel);
+			Map<String,String> map = ReflectUtil.getFieldMap(testModel);
 			dto.setValues(map);
 			dto.setRowkey(String.valueOf(i));
 			list.add(dto);
@@ -90,7 +90,7 @@ public class HbaseInsertTest {
 		testModel.setColumnFamily("f1");
 		testModel.setRowKey("rkf");
 		testModel.setF1("v1");
-		Map<String,String> map = BeanHelper.getFieldMapAll(testModel);
+		Map<String,String> map = ReflectUtil.getFieldMapAll(testModel);
 
 		Map<String,Object> bytemap = new HashedMap();
 		byte[] content = FileUtils.getContent("D:\\service.zip");

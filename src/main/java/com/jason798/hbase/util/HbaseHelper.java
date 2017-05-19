@@ -1,14 +1,19 @@
 package com.jason798.hbase.util;
 
-import java.util.Map;
-
+import com.jason798.character.StringCheckUtil;
+import com.jason798.collection.CollectionUtil;
 import com.jason798.hbase.model.constant.HbaseConstant;
 
+import java.util.Map;
+
 /**
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class HbaseHelper {
     private static String[] metaKey = {"tableName", "rowKey", "columnFamily"};
-    private static String[] metaTabRK = {"tableName", "rowKey"};
+    //private static String[] metaTabRK = {"tableName", "rowKey"};
 
     /**
      * filter TestModelBase field
@@ -16,16 +21,12 @@ public class HbaseHelper {
      * @param map void
      */
     public static <V> void filterMeta(Map<String, V> map) {
-        CollectionHelper.filterMap(map, metaKey);
+        CollectionUtil.filterMap(map, metaKey);
     }
 
-    public static Map<String, String> getTabRk(Object obj) throws Exception {
-        Map<String, String> fieldMap = BeanHelper.getFieldMapAllSpec(obj, metaTabRK);
-        return fieldMap;
-    }
 
     public static String filterColumnFamily(String columnFamily) {
-        if (StringHelper.isEmpty(columnFamily)){
+        if (StringCheckUtil.isEmpty(columnFamily)){
             columnFamily = HbaseConstant.DFT_COL_FAMILY;
         }
         return columnFamily;

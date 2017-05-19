@@ -1,18 +1,22 @@
-
 package com.jason798.hbase.action.crud.impl;
 
 import com.jason798.hbase.action.CRUDParamReturnAction;
+import com.jason798.hbase.api.HBaseException;
+import com.jason798.hbase.api.HBaseIOException;
 import com.jason798.hbase.model.constant.HbaseConstant;
 import com.jason798.hbase.model.param.crud.base.PutRowParam;
-import com.jason798.hbase.api.HBaseException;
 import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
+
+import java.io.IOException;
 import java.util.Map;
 
 /**
- * update row
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class UpdateRowAction extends CRUDBaseAction implements CRUDParamReturnAction<PutRowParam,Integer> {
 
@@ -21,10 +25,15 @@ public class UpdateRowAction extends CRUDBaseAction implements CRUDParamReturnAc
     }
 
     @Override
-    public Integer service(Table table, PutRowParam param) throws Exception {
+    public Integer service(Table table, PutRowParam param) throws HBaseException {
         byte[] rk = Bytes.toBytes(param.getRowKey());
         Get get = new Get(rk);
-        boolean tableExist = table.exists(get);
+        boolean tableExist = false;
+        try {
+            tableExist = table.exists(get);
+        } catch (IOException e) {
+            throw new HBaseIOException();
+        }
         if (!tableExist) {
             throw new HBaseException(String.format("hbase update row,row not exist %s", param.getRowKey()));
         }
@@ -36,7 +45,11 @@ public class UpdateRowAction extends CRUDBaseAction implements CRUDParamReturnAc
                         Bytes.toBytes(entry.getValue()));
             }
         }
-        table.put(put);
+        try {
+            table.put(put);
+        } catch (IOException e) {
+            throw new HBaseIOException();
+        }
         return 0;
     }
 

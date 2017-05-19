@@ -1,11 +1,11 @@
 package com.jason798.hbase.service;
 
+import com.jason798.collection.CollectionUtil;
 import com.jason798.hbase.api.HbaseService;
 import com.jason798.hbase.api.HbaseServiceFactory;
 import com.jason798.hbase.api.RowSimpleDto;
 import com.jason798.hbase.api.TableDto;
 import com.jason798.hbase.model.constant.HbaseConstant;
-import com.jason798.hbase.util.CollectionHelper;
 import junit.framework.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -80,7 +80,7 @@ public class SelectRowsListTest {
     public void testGetRowsTableNotExist() throws Exception{
         List<RowSimpleDto> res = hbaseService.selectRows("tableNotExist", new String[]{"1"});
         System.out.println("res :"+res);
-        Assert.assertEquals(true, CollectionHelper.isEmpty(res));
+        Assert.assertEquals(true, CollectionUtil.isEmpty(res));
     }
 
     /**
@@ -90,7 +90,7 @@ public class SelectRowsListTest {
     @Test
     public void testGetRowsColumnFamilyNotExist() throws Exception{
         List<RowSimpleDto> res = hbaseService.selectRows(tabName, new String[]{"1"},"cfnotexist",null, null );
-        assertEquals(true,CollectionHelper.isEmpty(res));
+        assertEquals(true,CollectionUtil.isEmpty(res));
     }
 
     /**
@@ -101,7 +101,7 @@ public class SelectRowsListTest {
     public void testGetRowsRowKeyNotExist() throws Exception{
         List<RowSimpleDto> res = hbaseService.selectRows(tabName, new String[]{"rknotexist"});
         System.out.println("res "+res);
-        assertEquals(true,CollectionHelper.isEmpty(res));
+        assertEquals(true,CollectionUtil.isEmpty(res));
     }
 
     /**
@@ -130,7 +130,7 @@ public class SelectRowsListTest {
 //        Collections.addAll(rowKeyList,rowKeys);
         List<RowSimpleDto> res = hbaseService.selectRows(tabName, rowKeys,spec);
         System.out.println("res "+ res);
-        assertEquals(true,CollectionHelper.isEmpty(res));
+        assertEquals(true,CollectionUtil.isEmpty(res));
     }
 
     /**
@@ -147,8 +147,8 @@ public class SelectRowsListTest {
 //        Collections.addAll(rowKeyList,rowKeys);
         List<RowSimpleDto> res = hbaseService.selectRows(tabName, rowKeys,spec);
         System.out.println("res "+ res);
-        assertEquals(false,CollectionHelper.isEmpty(res));
-        if(!CollectionHelper.isEmpty(res)){
+        assertEquals(false,CollectionUtil.isEmpty(res));
+        if(!CollectionUtil.isEmpty(res)){
             for(RowSimpleDto rowDto:res){
                 Map<String,String> valueMap = rowDto.getValues();
                 assertNotNull(valueMap.get(col2));

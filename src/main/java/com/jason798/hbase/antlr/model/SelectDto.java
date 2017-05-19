@@ -2,6 +2,10 @@ package com.jason798.hbase.antlr.model;
 
 /**
  * SelectDto
+ *
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class SelectDto {
     private int type;

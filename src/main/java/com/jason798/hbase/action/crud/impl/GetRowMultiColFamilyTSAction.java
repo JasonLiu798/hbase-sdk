@@ -1,8 +1,10 @@
 package com.jason798.hbase.action.crud.impl;
 
-import com.jason798.hbase.model.ValueTS;
 import com.jason798.hbase.action.CRUDParamReturnAction;
+import com.jason798.hbase.api.HBaseException;
+import com.jason798.hbase.api.HBaseIOException;
 import com.jason798.hbase.model.RowKeyParam;
+import com.jason798.hbase.model.ValueTS;
 import com.jason798.hbase.model.resp.RowMultiColFamilyTsModel;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellUtil;
@@ -10,30 +12,38 @@ import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * get multi column ,ts
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class GetRowMultiColFamilyTSAction extends GetRowBaseAction implements
 		CRUDParamReturnAction<RowKeyParam, RowMultiColFamilyTsModel> {
-
+	
 	public GetRowMultiColFamilyTSAction(String tableName) {
 		super(tableName);
 	}
-
+	
 	@Override
-	public RowMultiColFamilyTsModel service(Table table, RowKeyParam param) throws Exception {
-
+	public RowMultiColFamilyTsModel service(Table table, RowKeyParam param) throws HBaseException {
+		
 		RowMultiColFamilyTsModel res = new RowMultiColFamilyTsModel();
 		Map<String, Map<String, ValueTS>> values = new HashMap<>();
 		
 		//set condition
 		Get get = new Get(Bytes.toBytes(param.getRowKey()));//rowkey
 		
-		Result result = table.get(get);
+		Result result = null;
+		try {
+			result = table.get(get);
+		} catch (IOException e) {
+			throw new HBaseIOException();
+		}
 		List<Cell> list = result.listCells();
 		if (list != null) {
 			for (Cell cell : list) {
@@ -56,5 +66,5 @@ public class GetRowMultiColFamilyTSAction extends GetRowBaseAction implements
 		res.setValues(values);
 		return res;
 	}
-
+	
 }

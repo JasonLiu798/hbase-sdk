@@ -1,11 +1,14 @@
 package com.jason798.hbase.util;
 
+import com.jason798.character.StringCheckUtil;
+import com.jason798.collection.CollectionUtil;
 import com.jason798.hbase.api.HBaseException;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
- * 校验用
  */
 public class CheckUtil {
 
@@ -32,7 +35,7 @@ public class CheckUtil {
      * @param obj
      */
     public static void checkNull(String obj) {
-        if (StringHelper.isEmpty(obj)) {
+        if (StringCheckUtil.isEmpty(obj)) {
             throw new NullPointerException("obj  is null.");
         }
     }
@@ -42,15 +45,21 @@ public class CheckUtil {
      * @param obj
      */
     public static void checkNullAll(String ...obj) {
-        if(CollectionHelper.isEmpty(obj)){
+        if(CollectionUtil.isEmpty(obj)){
             throw new NullPointerException("string array is null.");
         }
         for(String str:obj){
-            if (StringHelper.isEmpty(str)) {
+            if (StringCheckUtil.isEmpty(str)) {
                 throw new NullPointerException("string array,one string is null.");
             }
         }
     }
+    
+    public static void checkStringAllNotNull(String ... str){
+		if(StringCheckUtil.isExistEmpty(str)){
+			throw new NullPointerException("exist null str");
+		}
+	}
 
     /**
      * check T[] NOT null
@@ -58,7 +67,7 @@ public class CheckUtil {
      * @param <T>
      */
     public static <T> void checkNull(T[] obj) {
-        if (CollectionHelper.isEmpty(obj)) {
+        if (CollectionUtil.isEmpty(obj)) {
             throw new NullPointerException("array is null.");
         }
     }
@@ -69,7 +78,7 @@ public class CheckUtil {
      * @param <T>
      */
     public static <T> void checkNull(List<T> obj) {
-        if (CollectionHelper.isEmpty(obj)) {
+        if (CollectionUtil.isEmpty(obj)) {
             throw new NullPointerException("parameter check,list null or empty");
         }
     }
@@ -81,7 +90,7 @@ public class CheckUtil {
      * @param <V>
      */
     public static <K, V> void checkNull(Map<K, V> map) {
-        if (CollectionHelper.isEmpty(map)) {
+        if (CollectionUtil.isEmpty(map)) {
             throw new NullPointerException("map null or empty");
         }
     }
@@ -90,7 +99,7 @@ public class CheckUtil {
      * Check for string is NOT null or empty string.
      */
     public static void checkEmptyString(String str) {
-        if (StringHelper.isEmpty(str)) {
+        if (StringCheckUtil.isEmpty(str)) {
             throw new IllegalArgumentException("str is null or empty.");
         }
     }
@@ -168,7 +177,6 @@ public class CheckUtil {
     }
 
     /**
-     * 检查参数类型
      * @param objs
      * @param clz
      */

@@ -3,7 +3,6 @@ package com.jason798.hbase.api;
 import com.google.protobuf.ServiceException;
 import com.jason798.hbase.core.HbaseConnectionManager;
 import com.jason798.hbase.impl.HbaseServiceImpl;
-
 import org.apache.hadoop.hbase.MasterNotRunningException;
 import org.apache.hadoop.hbase.ZooKeeperConnectionException;
 import org.apache.hadoop.hbase.client.Connection;
@@ -14,7 +13,8 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * hbase service Factory
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class HbaseServiceFactory {
 	private static final Logger LOGGER = LoggerFactory.getLogger(HbaseServiceFactory.class);

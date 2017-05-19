@@ -3,25 +3,31 @@ package com.jason798.hbase.api;
 import java.io.Serializable;
 
 /**
- * TODO: more common data result include columnfamily
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
-public class RowBaseDto implements Serializable {
+public class RowRawDto implements Serializable {
 
+	/**  */
+	private static final long serialVersionUID = 1258950903969245455L;
 	/**
 	 * rowkey
 	 */
-	protected String rowkey;
-	protected String columnFamily;
-	protected String qualifer;
-	protected String value;
+	private String rowkey;
+	private String columnFamily;
+	private String qualifer;
+	private Object value;
+	private long timestamp;
 
-	public RowBaseDto(){}
+	public RowRawDto(){}
 
-	public RowBaseDto(String rowkey, String columnFamily, String qualifer, String value) {
+	public RowRawDto(String rowkey, String columnFamily, String qualifer, String value, long timestamp) {
 		this.rowkey = rowkey;
 		this.columnFamily = columnFamily;
 		this.qualifer = qualifer;
 		this.value = value;
+		this.timestamp = timestamp;
 	}
 
 	public String getRowkey() {
@@ -48,22 +54,30 @@ public class RowBaseDto implements Serializable {
 		this.qualifer = qualifer;
 	}
 
-	public String getValue() {
+	public Object getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
+	public void setValue(Object value) {
 		this.value = value;
 	}
 
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
 
 	@Override
 	public String toString() {
-		return "RowDto{" +
+		return "RowRawDto{" +
 				"rowkey='" + rowkey + '\'' +
 				", columnFamily='" + columnFamily + '\'' +
 				", qualifer='" + qualifer + '\'' +
 				", value='" + value + '\'' +
+				", timestamp=" + timestamp +
 				'}';
 	}
 }

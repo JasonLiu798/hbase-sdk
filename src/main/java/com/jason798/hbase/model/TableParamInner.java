@@ -5,6 +5,8 @@ import org.apache.hadoop.hbase.TableName;
 /**
  * TableParamInner
  *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class TableParamInner {
     protected TableName tableName;

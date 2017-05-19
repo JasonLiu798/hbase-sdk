@@ -8,7 +8,7 @@ prog : selectSql  # selectSqlStmt
 // select stmt
 selectSql : SELECT columnList FROM table_name ( wherec )? rowkeyrange ( maxversionexp)? (tsrange)? (limitexp)?
 	       ;
-// delete stmt
+// deleteOne stmt
 deleteSql : DELETE columnList FROM table_name ( wherec )? rowkeyrange ( TS IS tsexp )?
 	       ;	       
 

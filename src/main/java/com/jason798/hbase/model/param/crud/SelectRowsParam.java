@@ -3,12 +3,17 @@ package com.jason798.hbase.model.param.crud;
 
 import com.jason798.hbase.model.param.crud.base.SelectBaseParam;
 
-
+/**
+ *
+ * @author JasonLiu798
+ * @since 1.0
+ */
 public class SelectRowsParam extends SelectBaseParam {
 	private String startRowKey;
 	private String endRowKey;
 	private ScanCondition condition;
 	private int maxSize;
+
 
 	public SelectRowsParam(){}
 

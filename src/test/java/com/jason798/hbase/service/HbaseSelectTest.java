@@ -35,8 +35,8 @@ public class HbaseSelectTest {
 	public void testDel() throws Exception{
 		System.out.println("del start -----------");
 
-		hbaseService.deleteByRowKey(tabName,rk );
-		System.out.println("del end -----------");
+//		hbaseService.deleteByRowKey(tabName,rk );
+//		System.out.println("del end -----------");
 	}
 	
 	

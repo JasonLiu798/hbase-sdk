@@ -1,9 +1,15 @@
 package com.jason798.hbase.model.resp;
 
+
 import com.jason798.hbase.model.ValueTS;
+
 import java.util.Map;
 
-
+/**
+ *
+ * @author JasonLiu798
+ * @since 1.0
+ */
 public class RowTsModel extends RowMeta {//no ts
 	/**
 	 * key: columnFamily

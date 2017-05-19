@@ -1,9 +1,12 @@
+
 package com.jason798.hbase.action.crud.impl;
 
 import com.jason798.hbase.action.ActionBase;
 
 /**
- * base CRUD action
+ * crud base action
+ * @author JasonLiu798
+ * @since 1.0
  */
 public abstract class CRUDBaseAction implements ActionBase {
 	/**

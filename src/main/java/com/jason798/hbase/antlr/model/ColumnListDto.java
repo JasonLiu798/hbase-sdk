@@ -4,6 +4,10 @@ import java.util.Arrays;
 
 /**
  * ColumnListDto
+ *
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class ColumnListDto {
     public static final int TYPE_ALL = 0;

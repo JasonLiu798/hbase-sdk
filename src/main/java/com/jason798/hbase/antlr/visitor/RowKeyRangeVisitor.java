@@ -1,16 +1,20 @@
 package com.jason798.hbase.antlr.visitor;
 
+import com.jason798.character.StringUtil;
 import com.jason798.hbase.antlr.SQLGrammerBaseVisitor;
+import com.jason798.hbase.antlr.SQLGrammerParser;
 import com.jason798.hbase.antlr.model.RowKeyRange;
 import com.jason798.hbase.model.constant.HbaseConstant;
-import com.jason798.hbase.util.StringHelper;
-import com.jason798.hbase.antlr.SQLGrammerParser;
 import com.jason798.hbase.util.CheckUtil;
 
 import java.util.List;
 
 /**
  * RowKeyRangeVisitor
+ *
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class RowKeyRangeVisitor extends SQLGrammerBaseVisitor<RowKeyRange> {
     @Override
@@ -45,7 +49,7 @@ public class RowKeyRangeVisitor extends SQLGrammerBaseVisitor<RowKeyRange> {
         CheckUtil.checkNull(sctx);
         SQLGrammerParser.RowkeyexpContext rctx = sctx.rowkeyexp();
         CheckUtil.checkNull(rctx);
-        String rowKey = StringHelper.filterOuterQuote(rctx.getText());
+        String rowKey = StringUtil.filterOuterQuote(rctx.getText());
         RowKeyRange range = new RowKeyRange(rowKey);
         return range;
     }

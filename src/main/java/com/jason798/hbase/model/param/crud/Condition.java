@@ -1,4 +1,3 @@
-
 package com.jason798.hbase.model.param.crud;
 
 import java.text.DateFormat;
@@ -6,6 +5,8 @@ import java.text.SimpleDateFormat;
 
 /**
  *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public interface Condition {
 	final public String OPER_EQUAL = "OPER_EQUAL";

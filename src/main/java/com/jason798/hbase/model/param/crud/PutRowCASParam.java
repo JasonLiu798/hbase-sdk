@@ -3,7 +3,11 @@ package com.jason798.hbase.model.param.crud;
 import com.jason798.hbase.model.CASValue;
 import org.apache.hadoop.hbase.TableName;
 
-
+/**
+ * 
+ * @author JasonLiu798
+ * @since 1.0
+ */
 public class PutRowCASParam {
 	private TableName tableName;
 	private String rowKey;

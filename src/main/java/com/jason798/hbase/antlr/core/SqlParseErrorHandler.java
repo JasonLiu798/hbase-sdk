@@ -7,11 +7,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  * SqlParseErrorHandler
- * TODO: process error sql
+ *
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class SqlParseErrorHandler extends DefaultErrorStrategy {
     private static final Logger LOGGER = LoggerFactory.getLogger(SqlParseErrorHandler.class);
-    public static SqlParseErrorHandler instance = new SqlParseErrorHandler();
+    public static final SqlParseErrorHandler instance = new SqlParseErrorHandler();
 
     /**
      * Instead of recovering from exception e, rethrow it wrapped in a generic

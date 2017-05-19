@@ -1,19 +1,22 @@
 package com.jason798.hbase.model.constant;
 
 /**
- * constants
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class HbaseConstant {
+
+	public static final String CONF_PREFIX_KEY = "hbase.prefix";
+	public static final String CONF_DFT_FILE = "hbase.properties";
+
+
 	public static final String TAB_NAME = "tableName";
 	public static final String ROW_KEY = "rowKey";
 	public static final String COL_FAMILY = "columnFamily";
 
 	public static final String DFT_COL_FAMILY = "f1";
-
-	/**
-	 * TODO: config in file
-	 */
-	public static final int DFT_SELECT_MAX_SIZE = 1000;
+	public static final int DFT_SELECT_MAX_SIZE = 100;
 
 
 	public static final String ACTION_DELETE = "ACTION DELETE";

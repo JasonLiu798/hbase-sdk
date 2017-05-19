@@ -1,12 +1,15 @@
 
 package com.jason798.hbase.api;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
- * row dto
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
-public class RowSimpleDto {
+public class RowSimpleDto implements Serializable {
 	/**
 	 * rowkey
 	 */

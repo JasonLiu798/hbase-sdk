@@ -1,9 +1,15 @@
-
 package com.jason798.hbase.model.param.crud;
 
 import com.jason798.hbase.model.param.crud.base.SelectBaseParam;
 
 import java.util.Arrays;
+
+/**
+ *
+ * 
+ * @author JasonLiu798
+ * @since 1.0
+ */
 public class SelectRowParam extends SelectBaseParam {
 	private String rowKey;
 	private String[] byteColumns;

@@ -1,11 +1,15 @@
 package com.jason798.hbase.antlr.model;
 
-import com.jason798.hbase.util.StringHelper;
+import com.jason798.character.StringCheckUtil;
 
 import java.util.Arrays;
 
 /**
  * RowKeyRange
+ *
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class RowKeyRange {
     public static final int TYPE_RANGE = 0;
@@ -39,7 +43,7 @@ public class RowKeyRange {
     public RowKeyRange(String start, String end) {
         this.start = start;
         this.end = end;
-        if(StringHelper.equal(start, end)){
+        if(StringCheckUtil.equal(start,end)){
             type = TYPE_SINGLE;
         }else{
             type = TYPE_RANGE;

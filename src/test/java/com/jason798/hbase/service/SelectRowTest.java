@@ -1,7 +1,7 @@
 package com.jason798.hbase.service;
 
+import com.jason798.collection.CollectionUtil;
 import com.jason798.hbase.model.constant.HbaseConstant;
-import com.jason798.hbase.util.CollectionHelper;
 import com.jason798.hbase.api.HbaseService;
 import com.jason798.hbase.api.HbaseServiceFactory;
 import junit.framework.Assert;
@@ -60,7 +60,7 @@ public class SelectRowTest {
     public void testGetRowTableNotExist() throws Exception{
         //exp.expect(HBaseException.class);
 		Map res = hbaseService.selectRow("tableNotExist", "1");
-        Assert.assertEquals(true, CollectionHelper.isEmpty(res));
+        Assert.assertEquals(true, CollectionUtil.isEmpty(res));
         System.out.println("res: "+res);
     }
 
@@ -72,7 +72,7 @@ public class SelectRowTest {
 	@Test
     public void testGetRowColumnFamilyNotExist() throws Exception{
         Map res = hbaseService.selectRow(tabName,"1","cfnotexist",null);
-        assertEquals(true,CollectionHelper.isEmpty(res));
+        assertEquals(true,CollectionUtil.isEmpty(res));
     }
 
     /**
@@ -83,7 +83,7 @@ public class SelectRowTest {
     public void testGetRowsRowKeyNotExist() throws Exception{
         Map res = hbaseService.selectRow(tabName, "rknotexist");
         System.out.println("res "+res);
-        assertEquals(true,CollectionHelper.isEmpty(res));
+        assertEquals(true,CollectionUtil.isEmpty(res));
     }
 
     /**
@@ -98,7 +98,7 @@ public class SelectRowTest {
 //        String col3 = "f3";
         Map res = hbaseService.selectRow(tabName,"1", spec);
         System.out.println("res "+ res);
-        assertEquals(true,CollectionHelper.isEmpty(res));
+        assertEquals(true,CollectionUtil.isEmpty(res));
     }
 
     /**

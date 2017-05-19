@@ -1,17 +1,20 @@
 package com.jason798.hbase.action.crud.impl;
 
-import com.jason798.hbase.model.constant.HbaseConstant;
 import com.jason798.hbase.api.HBaseException;
-
+import com.jason798.hbase.api.HBaseIOException;
+import com.jason798.hbase.model.constant.HbaseConstant;
 import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
- * insert base
+ *
+ * @author JasonLiu798
+ * @since 1.0
  */
 public class PutRowBaseAction extends CRUDBaseAction {
 
@@ -25,10 +28,14 @@ public class PutRowBaseAction extends CRUDBaseAction {
 	 * @param rowKey
 	 * @throws Exception
 	 */
-	protected void checkRowExist(Table tab,byte[] rowKey) throws Exception {
+	protected void checkRowExist(Table tab,byte[] rowKey) throws HBaseException {
 		Get get = new Get(rowKey);
-		if( !tab.exists(get)){
-			throw new HBaseException("update row not exist!");
+		try {
+			if( !tab.exists(get)){
+                throw new HBaseException("row not exist");
+            }
+		} catch (IOException e) {
+			throw new HBaseIOException();
 		}
 	}
 
@@ -55,12 +62,14 @@ public class PutRowBaseAction extends CRUDBaseAction {
 	 * for insert
 	 * @param put
 	 * @param columnFamily
-	 * @param bytes K:qualifer,V:byte[]
+	 * @param byteMap K:qualifer,V:byte[]
 	 * @return
 	 */
-	protected Put putByte(Put put, String columnFamily, Map<String,Object> bytes) {
-		for(String key:bytes.keySet()) {
-			put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes(key), (byte[])bytes.get(key));
+	protected Put putByte(Put put, String columnFamily, Map<String,Object> byteMap) {
+		for(Map.Entry<String,Object> entry:byteMap.entrySet()) {
+			String key = entry.getKey();
+			byte[] byteArr = (byte[]) entry.getValue();
+			put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes(key), byteArr);
 		}
 		return put;
 	}
